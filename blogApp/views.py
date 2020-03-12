@@ -1,9 +1,17 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render
+
 
 # create my views
 
 def index(request):
-    return HttpResponse("<h1>This is my template</h1>")
+    return render(request, "index.html")
 
+
+def getauthor(request,name):
+    return render(request, "profile.html")
+
+
+def getsingle(request, id):
+    return render(request, "single.html")
 
 # Create your views here.

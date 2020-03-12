@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('index', views.index,name="index"),
+    path('', views.index,name="index"),
+    path('author/<name>', views.getauthor, name="author"),
+    path('profile/<int:id>', views.getsingle, name="profile"),
 
 ]
