@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block  title %}
+
+{% endblock %}
+
+{% block stylesheet %}
+
+{% endblock %}
+
+
+{% block profile %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {#        flash message#}
+
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {#                         flash message#}
+        {% if request.user.is_authenticated %}
+            {% if request.user.is_staff or request.user.is_superuser %}
+                <a href="{% url 'category-add' %}" class="btn btn-danger pull-right">Add New Category</a><br>
+
+            {% endif %}
+
+        {% endif %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                {% if request.user.is_authenticated %}
+                    {% if request.user.is_staff or request.user.is_superuser %}
+                        <th scope="col">Action</th>
+                    {% endif %}
+
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for category in category %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td><a href="{% url 'topic' name=category.name %}">{{ category.name }}</a></td>
+                    <td>    {% if request.user.is_authenticated %}
+                        {% if request.user.is_staff or request.user.is_superuser %}
+                            <a href="{% url 'category-update' id=category.id %}">Edit</a>||<a
+                                href="{% url 'category-delete' id=category.id %}">Delete</a>
+                        {% endif %}
+
+                    {% endif %}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block  script %}
+
+{% endblock %}

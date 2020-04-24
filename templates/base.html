@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
 <html class="no-js"> <!--<![endif]-->
 <head>
@@ -77,19 +80,21 @@
         <div class="fh5co-box">
             <h3 class="heading">Menu</h3>
             <ul>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Style</a></li>
-                <li><a href="#">Create new post</a></li>
-                <li><a href="#">Food &amp; Drinks</a></li>
-                <li><a href="#">Culture</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="{% url 'category' %}">Category</a></li>
+                {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'profile' %}">Profile</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
             </ul>
         </div>
         <div class="fh5co-box">
             <h3 class="heading">Search</h3>
-            <form action="#">
+            <form action=" " method="get">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Type a keyword">
+                    <input type="text" name="q" class="form-control" placeholder="Type a keyword"
+                           value="{{ request.GET.q }}">
                 </div>
             </form>
         </div>
@@ -108,7 +113,7 @@
                 <li><a href="#"><i class="icon-instagram"></i></a></li>
             </ul>
             <div class="col-lg-12 col-md-12 text-center">
-                <h1 id="fh5co-logo"><a href="index.html">Emily Tran Le</a></h1>
+                <h1 id="fh5co-logo"><a href="{% url 'index' %}">Blog</a></h1>
             </div>
 
         </div>

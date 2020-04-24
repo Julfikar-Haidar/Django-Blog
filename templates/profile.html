@@ -1,32 +1,31 @@
 {% extends 'base.html' %}
 
 {% block  title %}
-profile
+    profile
 {% endblock %}
 
 {% block  stylesheet %}
 
 {% endblock %}
 
-    <style type="text/css">
-        #fh5co-offcanvas {
-            width: auto;
-        }
+<style type="text/css">
+    #fh5co-offcanvas {
+        width: auto;
+    }
 
-        #fh5co-offcanvas .fh5co-menu, #fh5co-offcanvas .fh5co-bio {
-            width: auto;
-            padding: 50px;
-        }
-    </style>
+    #fh5co-offcanvas .fh5co-menu, #fh5co-offcanvas .fh5co-bio {
+        width: auto;
+        padding: 50px;
+    }
+</style>
 {% block  profile %}
     <div class="fh5co-bio">
         <figure>
-            <img src="images/person1.jpg" alt="Free HTML5 Bootstrap Template" class="img-responsive">
+            <img src="{{ auth.author_image.url }}" alt="Free HTML5 Bootstrap Template" class="img-responsive">
         </figure>
         <h3 class="heading">About Me</h3>
-        <h2>Emily Tran Le</h2>
-        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the
-            blind texts. </p>
+        <h2>{{ auth.name }}</h2>
+        <p>{{ auth.details }}</p>
         <ul class="fh5co-social">
             <li><a href="#"><i class="icon-twitter"></i></a></li>
             <li><a href="#"><i class="icon-facebook"></i></a></li>
@@ -38,18 +37,19 @@ profile
 
 {% block content %}
 
-    {% load static %}
-
-
-
-    <article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
+<h1 class="text-center">Author : {{ auth.name }}</h1><br>
+    {% for p in post %}
+        <article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
         <figure>
-            <a href="single.html"><img src="{% static 'images/pic_1.jpg' %}" alt="Image" class="img-responsive"></a>
+            <a href="{% url 'single-post' id=p.id %}"><img src="{{p.image.url}}" alt="Image" class="img-responsive"></a>
         </figure>
-        <span class="fh5co-meta"><a href="single.html">Food &amp; Drink</a></span>
-        <h2 class="fh5co-article-title"><a href="single.html">We Eat and Drink All Night</a></h2>
-        <span class="fh5co-meta fh5co-date">March 6th, 2016</span>
+        <span class="fh5co-meta"><a href="single.html">{{p.category.name}}</a></span>
+        <h2 class="fh5co-article-title"><a href="{% url 'single-post' id=p.id %}">{{p.title}}</a></h2>
+        <span class="fh5co-meta fh5co-date">{{p.posted_on}}</span>
     </article>
+    {% endfor %}
+
+
 
     <div class="clearfix visible-xs-block"></div>
 
